@@ -578,7 +578,7 @@ MonoBehaviour:
   _defaultRotation: {x: 90, y: 0, z: 0}
   _changePosition: {x: 0, y: 7, z: -7}
   _changeRotation: {x: 55, y: 0, z: 0}
-  _transitionSpeed: 0.5
+  _transitionSpeed: 2
   _cameraPivot: {fileID: 1854526283}
 --- !u!4 &1368200958
 Transform:
