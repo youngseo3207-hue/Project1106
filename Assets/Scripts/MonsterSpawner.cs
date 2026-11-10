@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,9 +8,17 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private Transform monsterPoint;
     [SerializeField] private Transform _endPoint;
 
-    private void Update()
+    // private void Update()
+    // {
+    //     if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+    //     {
+    //         MonsterSpawn();
+    //     }
+    // }
+
+    private void Start()
     {
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        for (int i = 0; i < 5; i++)
         {
             MonsterSpawn();
         }
