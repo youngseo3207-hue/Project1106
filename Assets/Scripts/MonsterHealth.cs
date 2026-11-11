@@ -3,8 +3,10 @@ using UnityEngine;
 public class MonsterHealth : MonoBehaviour
 {
     [SerializeField] private int _monsterMaxHealth = 10;
+    private MonsterData _monsterData;
     
     private int _monsterCurrentHealth;
+    private float _damage;
 
     private void Awake()
     {
