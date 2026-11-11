@@ -14,6 +14,7 @@ public class MonsterHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _monsterCurrentHealth -= damage;
+        Debug.Log("파괴");
 
         if (_monsterCurrentHealth <= 0)
         {

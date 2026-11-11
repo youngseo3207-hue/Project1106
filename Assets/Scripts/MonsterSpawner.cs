@@ -10,10 +10,15 @@ public class MonsterSpawner : MonoBehaviour
 
     // private void Update()
     // {
-    //     if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+    //     spawnTimer += Time.deltaTime;
+    //
+    //     if (spawnedCount < monsterCount)
     //     {
-    //         MonsterSpawn();
+    //         return;
     //     }
+    //
+    //     spawnerCount++;
+    //     spawnTimer = RemoteSettings;
     // }
 
     private void Start()
