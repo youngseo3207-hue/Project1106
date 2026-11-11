@@ -8,19 +8,6 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private Transform monsterPoint;
     [SerializeField] private Transform _endPoint;
 
-    // private void Update()
-    // {
-    //     spawnTimer += Time.deltaTime;
-    //
-    //     if (spawnedCount < monsterCount)
-    //     {
-    //         return;
-    //     }
-    //
-    //     spawnerCount++;
-    //     spawnTimer = RemoteSettings;
-    // }
-
     private void Start()
     {
         for (int i = 0; i < 5; i++)
