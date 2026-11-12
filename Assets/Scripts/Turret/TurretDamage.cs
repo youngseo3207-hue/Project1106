@@ -20,6 +20,8 @@ public class TurretDamage : MonoBehaviour
 
         target.TakeDamage(_attackDamage);
         _nextAttackTime = Time.time + _attackInterval;
+        
+        Debug.Log($"몬스터 수: {FindObjectsByType<MonsterHealth>(FindObjectsSortMode.None).Length}");
     }
 
     private MonsterHealth FindMonster()
@@ -31,7 +33,10 @@ public class TurretDamage : MonoBehaviour
 
         foreach (MonsterHealth monster in monsters)
         {
-            float distSqr = (monster.transform.position - transform.position).sqrMagnitude;
+            Vector3 diff = monster.transform.position - transform.position;
+            diff.y = 0f;
+            
+            float distSqr = diff.sqrMagnitude;
 
             if (distSqr <= closestDistSqr)
             {

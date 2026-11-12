@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MonsterHealth : MonoBehaviour
 {
-    [SerializeField] private int _monsterMaxHealth = 10;
+    [SerializeField] private int _monsterMaxHealth = 3;
     private MonsterData _monsterData;
     
     private int _monsterCurrentHealth;
@@ -16,6 +16,7 @@ public class MonsterHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _monsterCurrentHealth -= damage;
+        Debug.Log($"피격:{damage}, 남은 체력 : {_monsterCurrentHealth}");
 
         if (_monsterCurrentHealth <= 0)
         {

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2406670382413820897}
   - component: {fileID: 5158233327251474963}
   - component: {fileID: 2575654419290757665}
+  - component: {fileID: 7558935870092163058}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -133,3 +134,16 @@ MonoBehaviour:
   _spawnPoint: {fileID: 0}
   _endPoint: {fileID: 0}
   _moveSpeed: 3
+--- !u!114 &7558935870092163058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285706870330175326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a59a853b202e94b8c059274fe79dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterHealth
+  _monsterMaxHealth: 5
