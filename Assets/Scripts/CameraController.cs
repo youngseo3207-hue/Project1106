@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform _cameraPivot;
     
     public bool IsChanged => _isChanged;
-    private bool _isChanged = false;
+    private bool _isChanged = true;
 
     private void Update()
     {

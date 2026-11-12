@@ -20,7 +20,8 @@ public class MonsterMove : MonoBehaviour
         transform.position = Vector3.MoveTowards(
             transform.position, 
             _endPoint.position, 
-            _moveSpeed * Time.deltaTime);
+            _moveSpeed * Time.deltaTime
+            );
 
         if (IsArrived(transform.position, _endPoint.position))
         {
@@ -28,7 +29,7 @@ public class MonsterMove : MonoBehaviour
         }
     }
 
-    public bool IsArrived(
+    private bool IsArrived(
         Vector3 currentPosition, 
         Vector3 targetPosition, 
         float epsilon = 0.1f)
