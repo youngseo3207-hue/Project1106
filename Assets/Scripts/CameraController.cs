@@ -17,8 +17,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform _cameraPivot;
     
     public bool IsChanged => _isChanged;
-
-    private bool _isChanged = false;
+    private bool _isChanged = true;
 
     private void Update()
     {
@@ -63,19 +62,5 @@ public class CameraController : MonoBehaviour
         _cameraTransform.localPosition = Vector3.Lerp(_cameraTransform.localPosition, targetPosition, Time.deltaTime * _transitionSpeed);
         _cameraTransform.localRotation =
             Quaternion.Slerp(_cameraTransform.localRotation, targetRotation, Time.deltaTime * _transitionSpeed);
-        
-        // Vector3.Lerp(_cameraTransform.position, targetPosition, Time.deltaTime * _transitionSpeed);
-        // Quaternion.Slerp(_cameraTransform.rotation, targetRotation, Time.deltaTime * _transitionSpeed);
     }
-
-    // private void ToggleOrbit()
-    // {
-    //     _isOrbiting = !_isOrbiting;
-    // }
-    //
-    // private void RotateCamera()
-    // {
-    //     if (!_isChanged || !_isOrbiting)
-    //         return;
-    // }
 }
