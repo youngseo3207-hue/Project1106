@@ -3,41 +3,54 @@ using UnityEngine.InputSystem;
 
 public class MonsterMove : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 3f;
+    [SerializeField] public Transform[] _waypoints;
+    [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Transform _endPoint;
+    [SerializeField] private float _moveSpeed = 3f;
 
-    public void MoveDestination(Transform destination)
+    private float _ArriveDistance = 0.1f;
+    private int _currentWaypoint = 0;
+    
+    public void Init(Transform[] waypoints,  Transform endPoint)
     {
-        _endPoint =  destination;
+        _waypoints = waypoints;
+        _endPoint = endPoint;
+        _currentWaypoint = 0;
     }
-
+    
     private void Update()
     {
-        if (_endPoint == null)
-        {
+        Transform target = GetCurrentTarget();
+        if (target == null)
             return;
-        }
+
         transform.position = Vector3.MoveTowards(
             transform.position, 
-            _endPoint.position, 
+            target.position, 
             _moveSpeed * Time.deltaTime
             );
 
-        if (IsArrived(transform.position, _endPoint.position))
+        if (Vector3.Distance(transform.position, target.position) > _ArriveDistance)
+            return;
+
+        if (_waypoints != null && _currentWaypoint < _waypoints.Length)
         {
-            Destroy(gameObject);
+            _currentWaypoint++;
+            return;
         }
+
+        ReachBase();
     }
 
-    private bool IsArrived(
-        Vector3 currentPosition, 
-        Vector3 targetPosition, 
-        float epsilon = 0.1f)
+    private Transform GetCurrentTarget()
     {
-        Vector3 direction = targetPosition - currentPosition;
+        if (_waypoints != null && _currentWaypoint < _waypoints.Length) return _waypoints[_currentWaypoint];
 
-        float sqrDistance = direction.sqrMagnitude;
-
-        return sqrDistance <= (epsilon * epsilon);
+        return _endPoint;
+    }
+    
+    private void ReachBase()
+    {
+        Destroy(gameObject);
     }
 }

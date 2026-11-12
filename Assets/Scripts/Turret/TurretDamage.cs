@@ -6,38 +6,47 @@ public class TurretDamage : MonoBehaviour
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _attackInterval = 1f;
     
-    private MonsterHealth[] monsters;
     private float _nextAttackTime;
-
-    private void Start()
-    {
-        monsters = FindObjectsByType<MonsterHealth>(FindObjectsSortMode.None);
-    }
 
     private void Update()
     {
-        checkMonsters();
+        if (Time.time < _nextAttackTime)
+            return;
+
+        MonsterHealth target = FindMonster();
+        
+        if (target == null)
+            return;
+
+        target.TakeDamage(_attackDamage);
+        _nextAttackTime = Time.time + _attackInterval;
     }
 
-    private void checkMonsters()
+    private MonsterHealth FindMonster()
     {
-        for (int i = 0; i < monsters.Length; i++)
+        MonsterHealth[] monsters = FindObjectsByType<MonsterHealth>(FindObjectsSortMode.None);
+        
+        MonsterHealth closest = null;
+        float closestDistSqr = _attackRange * _attackRange;
+
+        foreach (MonsterHealth monster in monsters)
         {
-            MonsterHealth monster = monsters[i]; 
-            
-            Vector3 direction = monster.transform.position - transform.position;
-            float distance = direction.magnitude;
-            
-            if (distance <= _attackRange)
+            float distSqr = (monster.transform.position - transform.position).sqrMagnitude;
+
+            if (distSqr <= closestDistSqr)
             {
-                if (Time.time >= _nextAttackTime)
-                {
-                    monster.TakeDamage(_attackDamage);
-                    _nextAttackTime = Time.time + _attackInterval;
-                }
+                closestDistSqr = distSqr;
+                closest = monster;
             }
         }
+        
+        return closest;
     }
-    
-    
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
+    }
 }

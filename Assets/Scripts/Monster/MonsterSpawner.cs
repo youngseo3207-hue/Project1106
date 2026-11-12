@@ -1,37 +1,22 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject monsterPrefab;
+    [SerializeField] private MonsterMove monsterPrefab;
+    [SerializeField] private Transform[] waypoints;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform endPoint;
-
-    private float spawnInterval = 2f;
-    private float timer = 0f;
+    [SerializeField]private float spawnInterval = 2f;
     
-    private bool isSpawning = false;
-
-    private void Start()
-    {
-        StartSpawning();
-    }
-
-    private void StartSpawning()
-    {
-        isSpawning = true;
-    }
+    private float timer = 0f;
 
     private void Update()
     {
-        if (!isSpawning)
-        {
-            return;
-        }
-        
         timer += Time.deltaTime;
-
+        
         if (timer >= spawnInterval)
         {
             spawnMonster();
@@ -41,20 +26,8 @@ public class MonsterSpawner : MonoBehaviour
 
     private void spawnMonster()
     {
-        GameObject monster = Instantiate(
-            monsterPrefab,
-            spawnPoint.position,
-            spawnPoint.rotation
-            );
-        
-        MonsterMove monsterMove = monster.GetComponent<MonsterMove>();
-
-        if (monsterMove == null)
-        {
-            Debug.Log("컴포넌트 없음");
-            return;
-        }
-        
-        monsterMove.MoveDestination(endPoint);
+        MonsterMove monster = Instantiate(monsterPrefab, spawnPoint.position, spawnPoint.rotation);
+        monster.Init(waypoints, endPoint);
     }
+        
 }
