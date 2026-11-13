@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a59a853b202e94b8c059274fe79dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterHealth
-  _monsterMaxHealth: 5
+  _monsterMaxHealth: 8
