@@ -70,6 +70,9 @@ public class PauseController : MonoBehaviour
 
     private void OpenSkills()
     {
+        Debug.Log("_pauseMenu: " + _pauseMenu);
+        Debug.Log("_skillsController: " + _skillsController);
+        
         _pauseMenu.SetActive(false);
         Time.timeScale = 0f;
 
