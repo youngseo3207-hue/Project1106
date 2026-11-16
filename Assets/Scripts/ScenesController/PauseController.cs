@@ -65,7 +65,7 @@ public class PauseController : MonoBehaviour
     private void ReturnToMain()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("_moveToMainTitle");
+        SceneManager.LoadScene(_moveToMainTitle);
     }
 
     private void OpenSkills()

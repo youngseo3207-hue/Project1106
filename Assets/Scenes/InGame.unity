@@ -2724,7 +2724,7 @@ MonoBehaviour:
   _skillsButton: {fileID: 1253803902}
   _exitGameButton: {fileID: 1550343054}
   _optionButton: {fileID: 1550343054}
-  _moveToMainTitle: _moveToMainTitle
+  _moveToMainTitle: MainTitle
   _skillsController: {fileID: 907749980}
 --- !u!4 &2123128113
 Transform:
