@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TurretDamage : MonoBehaviour
 {
-    [SerializeField] private int _attackDamage = 3;
+    [SerializeField] private float _attackDamage = 3;
     [SerializeField] private float _attackRange = 5f;
     [SerializeField] private float _attackInterval = 1f;
     
@@ -18,7 +18,7 @@ public class TurretDamage : MonoBehaviour
         if (target == null)
             return;
 
-        target.TakeDamage(_attackDamage);
+        target.TakeDamage((int)_attackDamage);
         _nextAttackTime = Time.time + _attackInterval;
         
         Debug.Log($"몬스터 수: {FindObjectsByType<MonsterHealth>(FindObjectsSortMode.None).Length}");
