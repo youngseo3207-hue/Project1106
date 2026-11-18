@@ -19,6 +19,9 @@ public class PauseController : MonoBehaviour
     
     [Header("SkillsController 연결")]
     [SerializeField] private SkillsController _skillsController;
+    
+    [Header("배경 색")]
+    [SerializeField] private GameObject _backGroundPanel;
 
     private bool _isLoadingSkills;
     
@@ -30,6 +33,11 @@ public class PauseController : MonoBehaviour
         _returnToMainButton.onClick.AddListener(ReturnToMain);
         _skillsButton.onClick.AddListener(OpenSkills);
         _exitGameButton.onClick.AddListener(ExitGame);
+
+        if (_backGroundPanel != null)
+        {
+            _backGroundPanel.SetActive(false);
+        }
     }
     
     private void Update()
@@ -41,16 +49,15 @@ public class PauseController : MonoBehaviour
             Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             bool isPause = !_pauseMenu.activeSelf;
-            
-            _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+            _pauseMenu.SetActive(isPause);
 
             if (isPause)
             {
-                Time.timeScale = 0;
+                openMenu();
             }
             else
             {
-                Time.timeScale = 1;
+                closeMenu();
             }
         }
     }
@@ -58,8 +65,8 @@ public class PauseController : MonoBehaviour
     private void ContinueGame()
     {
         _pauseMenu.SetActive(false);
-        
-        Time.timeScale = 1f;
+
+        closeMenu();
     }
 
     private void ReturnToMain()
@@ -70,15 +77,53 @@ public class PauseController : MonoBehaviour
 
     private void OpenSkills()
     {
-        Debug.Log("_pauseMenu: " + _pauseMenu);
-        Debug.Log("_skillsController: " + _skillsController);
+        if (_pauseMenu != null)
+        {
+            _pauseMenu.SetActive(false);
+        }
         
-        _pauseMenu.SetActive(false);
-        Time.timeScale = 0f;
+        openMenu();
 
-        _skillsController.OpenSkills();
+        if (_skillsButton != null)
+        {
+            _skillsController.OpenSkills();
+        }
+        // gameObject.SetActive(true);
+        // Time.timeScale = 0f;
+        
+        // Debug.Log("_pauseMenu: " + _pauseMenu);
+        // Debug.Log("_skillsController: " + _skillsController);
+        //
+        // _pauseMenu.SetActive(false);
+        // Time.timeScale = 0f;
+        //
+        // _skillsController.OpenSkills();
     }
 
+    private void CloseSkills()
+    {
+        gameObject.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    private void openMenu()
+    {
+        if (_backGroundPanel != null)
+        {
+            _backGroundPanel.SetActive(true);
+        }
+        Time.timeScale = 0f;
+    }
+
+    private void closeMenu()
+    {
+        if (_backGroundPanel != null)
+        {
+            _backGroundPanel.SetActive(false);
+        }
+        Time.timeScale = 1f;
+    }
+    
     private void ExitGame()
     {
         Application.Quit();
