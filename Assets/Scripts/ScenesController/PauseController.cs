@@ -10,7 +10,7 @@ public class PauseController : MonoBehaviour
     
     [SerializeField] private Button _continueGameButton;
     [SerializeField] private Button _returnToMainButton;
-    [SerializeField] private Button _skillsButton;
+    // [SerializeField] private Button _skillsButton;
     [SerializeField] private Button _exitGameButton;
     [SerializeField] private Button _optionButton;
 
@@ -31,7 +31,7 @@ public class PauseController : MonoBehaviour
         
         _continueGameButton.onClick.AddListener(ContinueGame);
         _returnToMainButton.onClick.AddListener(ReturnToMain);
-        _skillsButton.onClick.AddListener(OpenSkills);
+        // _skillsButton.onClick.AddListener(OpenSkills);
         _exitGameButton.onClick.AddListener(ExitGame);
 
         if (_backGroundPanel != null)
@@ -74,31 +74,31 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(_moveToMainTitle);
     }
-
-    private void OpenSkills()
-    {
-        if (_pauseMenu != null)
-        {
-            _pauseMenu.SetActive(false);
-        }
-        
-        openMenu();
-
-        if (_skillsButton != null)
-        {
-            _skillsController.OpenSkills();
-        }
-        // gameObject.SetActive(true);
-        // Time.timeScale = 0f;
-        
-        // Debug.Log("_pauseMenu: " + _pauseMenu);
-        // Debug.Log("_skillsController: " + _skillsController);
-        //
-        // _pauseMenu.SetActive(false);
-        // Time.timeScale = 0f;
-        //
-        // _skillsController.OpenSkills();
-    }
+    
+    // private void OpenSkills()
+    // {
+    //     if (_pauseMenu != null)
+    //     {
+    //         _pauseMenu.SetActive(false);
+    //     }
+    //     
+    //     openMenu();
+    //
+    //     if (_skillsButton != null)
+    //     {
+    //         _skillsController.OpenSkills();
+    //     }
+    //     // gameObject.SetActive(true);
+    //     // Time.timeScale = 0f;
+    //     
+    //     // Debug.Log("_pauseMenu: " + _pauseMenu);
+    //     // Debug.Log("_skillsController: " + _skillsController);
+    //     //
+    //     // _pauseMenu.SetActive(false);
+    //     // Time.timeScale = 0f;
+    //     //
+    //     // _skillsController.OpenSkills();
+    // }
 
     private void CloseSkills()
     {
