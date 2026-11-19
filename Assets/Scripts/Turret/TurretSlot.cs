@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class TurretSlot : MonoBehaviour
 {
+    [Header("Turret Info")] 
+    [SerializeField] private string turretName = "Arrow Tower";
+    [SerializeField] private int turretCost = 1; 
+    
     [Header("Settings")]
     [SerializeField] private GameObject towerPrefab;      // 생성할 Arrow Tower 프리팹
     [SerializeField] private GameObject highlightVisual;  // 마우스 올렸을 때 켜질 흰색 원 테두리
@@ -36,11 +40,17 @@ public class TurretSlot : MonoBehaviour
     {
         if (isOccupied) return;
 
-        BuildTower();
+        Debug.Log("OnMouseDown 진입");
+
+        if (TurretInfoUI.Instance != null)
+        {
+            TurretInfoUI.Instance.ShowTowerInfo(this, turretName, turretCost);
+        }
     }
 
-    private void BuildTower()
+    public void BuildTower()
     {
+        Debug.Log($"[BuildTower 실행] 슬롯: {gameObject.name}, 프리팹: {towerPrefab?.name}", this);
         if (towerPrefab == null) return;
 
         // 슬롯 위치 + 오프셋에 타워 생성

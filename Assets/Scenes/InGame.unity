@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 9209989}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.17, y: 0, z: 1.83}
+  m_LocalPosition: {x: 10.98, y: 0, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -853,11 +853,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa614648962dc44db6c32ac4b09b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSlot
-  towerName: Arrow Tower
-  towerCost: 1
+  turretName: Arrow Tower
+  turretCost: 1
   towerPrefab: {fileID: 887201744920287306, guid: ed5c2c89828e56244b16fb797696b9e6, type: 3}
+  highlightVisual: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
-  highlightObject: {fileID: 0}
 --- !u!136 &164969739
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -985,11 +985,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa614648962dc44db6c32ac4b09b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSlot
-  towerName: Arrow Tower
-  towerCost: 1
+  turretName: Arrow Tower
+  turretCost: 1
   towerPrefab: {fileID: 887201744920287306, guid: ed5c2c89828e56244b16fb797696b9e6, type: 3}
+  highlightVisual: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
-  highlightObject: {fileID: 0}
 --- !u!136 &198517857
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3223,11 +3223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa614648962dc44db6c32ac4b09b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSlot
-  towerName: Arrow Tower
-  towerCost: 1
+  turretName: Arrow Tower
+  turretCost: 1
   towerPrefab: {fileID: 887201744920287306, guid: ed5c2c89828e56244b16fb797696b9e6, type: 3}
+  highlightVisual: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
-  highlightObject: {fileID: 0}
 --- !u!136 &909564416
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4487,7 +4487,7 @@ MonoBehaviour:
   - {fileID: 1689606828}
   spawnPoint: {fileID: 1296836068}
   endPoint: {fileID: 9209990}
-  spawnInterval: 2
+  spawnInterval: 3
 --- !u!4 &1296836068
 Transform:
   m_ObjectHideFlags: 0
@@ -4497,7 +4497,7 @@ Transform:
   m_GameObject: {fileID: 1296836066}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 1.5}
+  m_LocalPosition: {x: -6, y: 0, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5626,11 +5626,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa614648962dc44db6c32ac4b09b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSlot
-  towerName: Arrow Tower
-  towerCost: 1
+  turretName: Arrow Tower
+  turretCost: 1
   towerPrefab: {fileID: 887201744920287306, guid: ed5c2c89828e56244b16fb797696b9e6, type: 3}
+  highlightVisual: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
-  highlightObject: {fileID: 0}
 --- !u!1 &1515373835
 GameObject:
   m_ObjectHideFlags: 0
@@ -5661,8 +5661,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfoUI
   panel: {fileID: 1607920242}
+  panelRect: {fileID: 1607920243}
   towerNameText: {fileID: 1764132948}
   towerCostText: {fileID: 409927043}
+  screenOffset: {x: 100, y: 100}
 --- !u!4 &1515373837
 Transform:
   m_ObjectHideFlags: 0
@@ -6010,6 +6012,7 @@ GameObject:
   - component: {fileID: 1607920243}
   - component: {fileID: 1607920245}
   - component: {fileID: 1607920244}
+  - component: {fileID: 1607920246}
   m_Layer: 5
   m_Name: TurretInfoPanel
   m_TagString: Untagged
@@ -6034,10 +6037,10 @@ RectTransform:
   - {fileID: 1869969379}
   m_Father: {fileID: 2098935945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -738, y: -398}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1607920244
 MonoBehaviour:
@@ -6051,7 +6054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 8e365f8757095934d95aad1c7d9d0e55, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -6077,6 +6080,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607920242}
   m_CullTransparentMesh: 1
+--- !u!114 &1607920246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607920242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1607920244}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1515373835}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1673050150
 GameObject:
   m_ObjectHideFlags: 0
@@ -7488,11 +7547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa614648962dc44db6c32ac4b09b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSlot
-  towerName: Arrow Tower
-  towerCost: 1
+  turretName: Arrow Tower
+  turretCost: 1
   towerPrefab: {fileID: 887201744920287306, guid: ed5c2c89828e56244b16fb797696b9e6, type: 3}
+  highlightVisual: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
-  highlightObject: {fileID: 0}
 --- !u!136 &1997537051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7767,11 +7826,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa614648962dc44db6c32ac4b09b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretSlot
-  towerName: Arrow Tower
-  towerCost: 1
+  turretName: Arrow Tower
+  turretCost: 1
   towerPrefab: {fileID: 887201744920287306, guid: ed5c2c89828e56244b16fb797696b9e6, type: 3}
+  highlightVisual: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
-  highlightObject: {fileID: 0}
 --- !u!136 &2071293308
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7995,13 +8054,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1607920243}
   - {fileID: 1400475894}
   - {fileID: 1673050151}
   - {fileID: 1468395220}
   - {fileID: 2028242654}
   - {fileID: 1917258542}
   - {fileID: 723535911}
-  - {fileID: 1607920243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
