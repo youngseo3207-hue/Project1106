@@ -1269,11 +1269,11 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.5, y: 7, z: 0}
+  m_LocalPosition: {x: 2.5, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1854526283}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -4279,7 +4279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1243088160}
-  - component: {fileID: 1243088159}
   m_Layer: 0
   m_Name: MouseController
   m_TagString: Untagged
@@ -4287,21 +4286,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1243088159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243088158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d05d18cd640a59488637dcfbd3642f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MouseController
-  _cameraController: {fileID: 1368200957}
-  _cameraPivot: {fileID: 1854526283}
-  _rotateSpeed: 1
 --- !u!4 &1243088160
 Transform:
   m_ObjectHideFlags: 0
@@ -4650,7 +4634,7 @@ MonoBehaviour:
   _changePosition: {x: 2.5, y: 11, z: -4.5}
   _changeRotation: {x: 65, y: 0, z: 0}
   _transitionSpeed: 2
-  _cameraPivot: {fileID: 1854526283}
+  _cameraPivot: {fileID: 0}
 --- !u!4 &1368200958
 Transform:
   m_ObjectHideFlags: 0
@@ -6853,38 +6837,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847545934}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1854526282
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1854526283}
-  m_Layer: 0
-  m_Name: CameraPivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1854526283
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854526282}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 330585546}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1869969375
 GameObject:
   m_ObjectHideFlags: 0
@@ -8481,7 +8433,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1854526283}
+  - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 1243088160}
   - {fileID: 1368200958}
