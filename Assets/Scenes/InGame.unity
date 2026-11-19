@@ -6028,7 +6028,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607920242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
   m_LocalScale: {x: 0.12571761, y: 0.07554273, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6124,13 +6124,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1515373835}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1515373836}
+        m_TargetAssemblyTypeName: TurretInfoUI, Assembly-CSharp
+        m_MethodName: OnClickBuild
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8054,8 +8054,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1607920243}
   - {fileID: 1400475894}
+  - {fileID: 1607920243}
   - {fileID: 1673050151}
   - {fileID: 1468395220}
   - {fileID: 2028242654}

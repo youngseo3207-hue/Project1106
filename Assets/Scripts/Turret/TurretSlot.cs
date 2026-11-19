@@ -50,12 +50,13 @@ public class TurretSlot : MonoBehaviour
 
     public void BuildTower()
     {
-        Debug.Log($"[BuildTower 실행] 슬롯: {gameObject.name}, 프리팹: {towerPrefab?.name}", this);
-        if (towerPrefab == null) return;
+        if (towerPrefab == null)
+        {
+            Debug.LogError($"{gameObject.name}: Tower Prefab이 비어 있습니다. 인스펙터에서 연결하세요.", this);
+            return;
+        }
 
-        // 슬롯 위치 + 오프셋에 타워 생성
         Instantiate(towerPrefab, transform.position + spawnOffset, Quaternion.identity);
-        
         isOccupied = true;
 
         if (highlightVisual != null)
