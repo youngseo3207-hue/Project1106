@@ -7,58 +7,36 @@ public class PauseController : MonoBehaviour
 {
     [Header("Esc키 눌렀을 때 뜨는 화면")]
     [SerializeField] private GameObject _pauseMenu;
-    
     [SerializeField] private Button _continueGameButton;
     [SerializeField] private Button _returnToMainButton;
-    // [SerializeField] private Button _skillsButton;
     [SerializeField] private Button _exitGameButton;
     [SerializeField] private Button _optionButton;
-
-    [Header("이동할 Scene 연결")] 
-    [SerializeField] private string _moveToMainTitle;
-    
-    [Header("SkillsController 연결")]
-    [SerializeField] private SkillsController _skillsController;
-    
-    [Header("배경 색")]
+   
+    [Header("공통 화면")]
     [SerializeField] private GameObject _backGroundPanel;
-
-    [Header("인게임 아이콘")] 
     [SerializeField] private GameObject[] _inGameIcons;
+    [SerializeField] private string _moveToMainTitle;
 
-    [Header("옵션 창")]
+    [Header("옵션-볼륨 조절 창")]
     [SerializeField] private GameObject _optionPanel;
     [SerializeField] private Button _optionCloseButton;
+    [SerializeField] private Button _optionIconButton;
     
-    private bool _isLoadingSkills;
+    private bool _isOpenOptionMenu;
     
     private void Start()
     {
-        _pauseMenu.SetActive(false);
-        
-        _continueGameButton.onClick.AddListener(ContinueGame);
-        _returnToMainButton.onClick.AddListener(ReturnToMain);
-        _exitGameButton.onClick.AddListener(ExitGame);
+        SetActiveSafe(_pauseMenu, false);
+        SetActiveSafe(_optionPanel, false);
+        SetActiveSafe(_backGroundPanel, false);
+       
+        if(_continueGameButton != null) _continueGameButton.onClick.AddListener(ResumeGame);
+        if(_returnToMainButton != null) _returnToMainButton.onClick.AddListener(ReturnToMain);
+        if (_exitGameButton != null) _exitGameButton.onClick.AddListener(ExitGame);
 
-        if (_backGroundPanel != null)
-        {
-            _backGroundPanel.SetActive(false);
-        }
-
-        if (_optionPanel != null)
-        {
-            _optionPanel.SetActive(false);
-        }
-
-        if (_optionButton != null)
-        {
-            _optionButton.onClick.AddListener(OpenOptionMenu);
-        }
-
-        if (_optionCloseButton != null)
-        {
-            _optionCloseButton.onClick.AddListener(CloseOptionMenu);
-        }
+        if (_optionButton != null) _optionButton.onClick.AddListener(OpenOptionFromPause);
+        if (_optionCloseButton != null) _optionCloseButton.onClick.AddListener(CloseOption);
+        if (_optionIconButton != null) _optionIconButton.onClick.AddListener(ToggleOptionFromIcon);
     }
     
     private void Update()
@@ -66,91 +44,129 @@ public class PauseController : MonoBehaviour
         if (SceneManager.GetSceneByName("Skills").isLoaded)
             return;
         
-        if (Keyboard.current != null && 
-            Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if (_optionPanel != null && _optionPanel.activeSelf)
-            {
-                CloseOptionMenu();
-                return;
-            }
-            bool isPause = !_pauseMenu.activeSelf;
-            _pauseMenu.SetActive(isPause);
-
-            if (isPause)
-            {
-                openMenu();
-            }
-            else
-            {
-                closeMenu();
-            }
+            HandleEscapeKey();
         }
     }
 
-    private void ContinueGame()
+    private void HandleEscapeKey()
     {
-        _pauseMenu.SetActive(false);
+        Debug.Log($"ESC 눌림 | Option:{_optionPanel?.activeSelf}, Pause:{_pauseMenu?.activeSelf}");
+        
+        // Option 창이 열려 있다면 -> Option 창부터 닫기
+        if (_optionPanel != null && _optionPanel.activeSelf)
+        {
+            CloseOption();
+            return;
+        }
 
-        closeMenu();
+        // Pause 메뉴가 열려 있다면 -> 게임 재개, 닫혀 있다면 -> Pause 메뉴 열기
+        if (_pauseMenu != null && _pauseMenu.activeSelf)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            OpenPauseMenu();
+        }
+    }
+
+    public void OpenPauseMenu()
+    {
+        Debug.Log("Option Button 누름");
+        _isOpenOptionMenu = false;
+        
+        SetActiveSafe(_pauseMenu, true);
+        SetActiveSafe(_optionPanel, false);
+        SetActiveSafe(_backGroundPanel, true);
+        SetInGameIconsActive(false);
+        
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log("Resume 호출");
+        
+        SetActiveSafe(_pauseMenu, false);
+        SetActiveSafe(_optionPanel, false);
+        SetActiveSafe(_backGroundPanel, false);
+        SetInGameIconsActive(true);
+        
+        Time.timeScale = 1f;
+    }
+
+    public void OpenOptionFromPause()
+    {
+        _isOpenOptionMenu = true;
+        OpenOptionCommon();
+    }
+
+    public void ToggleOptionFromIcon()
+    {
+        if (_optionPanel != null && _optionPanel.activeSelf)
+        {
+            CloseOption();
+            return;
+        }
+
+        _isOpenOptionMenu = false;
+        OpenOptionCommon();
+    }
+
+    private void OpenOptionCommon()
+    {
+        SetActiveSafe(_pauseMenu, false);
+        SetActiveSafe(_optionPanel, true);
+        SetActiveSafe(_backGroundPanel, true);
+        SetInGameIconsActive(false);
+        
+        Time.timeScale = 0f;
+    }
+
+    public void CloseOption()
+    {
+        SetActiveSafe(_optionPanel, false);
+
+        if (_isOpenOptionMenu)
+        {
+            SetActiveSafe(_pauseMenu, true);
+            SetActiveSafe(_backGroundPanel, true);
+            SetInGameIconsActive(false);
+            
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            ResumeGame();
+        }
     }
 
     private void ReturnToMain()
     {
         Time.timeScale = 1f;
+        
         SceneManager.LoadScene(_moveToMainTitle);
     }
-    
-    // private void OpenSkills()
-    // {
-    //     if (_pauseMenu != null)
-    //     {
-    //         _pauseMenu.SetActive(false);
-    //     }
-    //     
-    //     openMenu();
-    //
-    //     if (_skillsButton != null)
-    //     {
-    //         _skillsController.OpenSkills();
-    //     }
-    //     // gameObject.SetActive(true);
-    //     // Time.timeScale = 0f;
-    //     
-    //     // Debug.Log("_pauseMenu: " + _pauseMenu);
-    //     // Debug.Log("_skillsController: " + _skillsController);
-    //     //
-    //     // _pauseMenu.SetActive(false);
-    //     // Time.timeScale = 0f;
-    //     //
-    //     // _skillsController.OpenSkills();
-    // }
 
-    private void CloseSkills()
+    private void ExitGame()
     {
-        gameObject.SetActive(false);
         Time.timeScale = 1f;
+        
+        Application.Quit();
+     
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif        
     }
 
-    private void openMenu()
+    private void SetActiveSafe(GameObject target, bool isActive)
     {
-        Debug.Log("open menu 호출 됨");
-        if (_backGroundPanel != null)
+        if (target != null)
         {
-            _backGroundPanel.SetActive(true);
+            target.SetActive(isActive);
         }
-        SetInGameIconsActive(false);
-        Time.timeScale = 0f;
-    }
-
-    private void closeMenu()
-    {
-        if (_backGroundPanel != null)
-        {
-            _backGroundPanel.SetActive(false);
-        }
-        SetInGameIconsActive(true);
-        Time.timeScale = 1f;
     }
 
     private void SetInGameIconsActive(bool isActive)
@@ -159,62 +175,7 @@ public class PauseController : MonoBehaviour
 
         foreach (GameObject icon in _inGameIcons)
         {
-            if(icon != null)
-            {
-                icon.SetActive(isActive);
-            }
+            SetActiveSafe(icon, isActive);
         }
-    }
-
-    public void OpenOptionMenu()
-    {
-        Debug.Log("Option 호출");
-        if (_pauseMenu != null)
-        {
-            _pauseMenu.SetActive(false);
-        }
-
-        if (_backGroundPanel != null)
-        {
-            _backGroundPanel.SetActive(true);
-        }
-
-        if (_optionPanel != null)
-        {
-            _optionPanel.SetActive(true);
-        }
-        
-        SetInGameIconsActive(false);
-        Time.timeScale = 0f;
-    }
-
-    private void CloseOptionMenu()
-    {
-        if (_optionPanel != null)
-        {
-            _optionPanel.SetActive(false);
-        }
-
-        if (_pauseMenu != null)
-        {
-            _pauseMenu.SetActive(true);
-        }
-
-        if (_backGroundPanel != null)
-        {
-            _backGroundPanel.SetActive(true);
-        }
-        
-        SetInGameIconsActive(false);
-        Time.timeScale = 0f;
-    }
-    
-    private void ExitGame()
-    {
-        Time.timeScale = 1f;
-        Application.Quit();
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-    #endif    
     }
 }
