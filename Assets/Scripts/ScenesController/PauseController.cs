@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -23,6 +23,13 @@ public class PauseController : MonoBehaviour
     [Header("배경 색")]
     [SerializeField] private GameObject _backGroundPanel;
 
+    [Header("인게임 아이콘")] 
+    [SerializeField] private GameObject[] _inGameIcons;
+
+    [Header("옵션 창")]
+    [SerializeField] private GameObject _optionPanel;
+    [SerializeField] private Button _optionCloseButton;
+    
     private bool _isLoadingSkills;
     
     private void Start()
@@ -31,12 +38,26 @@ public class PauseController : MonoBehaviour
         
         _continueGameButton.onClick.AddListener(ContinueGame);
         _returnToMainButton.onClick.AddListener(ReturnToMain);
-        // _skillsButton.onClick.AddListener(OpenSkills);
         _exitGameButton.onClick.AddListener(ExitGame);
 
         if (_backGroundPanel != null)
         {
             _backGroundPanel.SetActive(false);
+        }
+
+        if (_optionPanel != null)
+        {
+            _optionPanel.SetActive(false);
+        }
+
+        if (_optionButton != null)
+        {
+            _optionButton.onClick.AddListener(OpenOptionMenu);
+        }
+
+        if (_optionCloseButton != null)
+        {
+            _optionCloseButton.onClick.AddListener(CloseOptionMenu);
         }
     }
     
@@ -48,6 +69,11 @@ public class PauseController : MonoBehaviour
         if (Keyboard.current != null && 
             Keyboard.current.escapeKey.wasPressedThisFrame)
         {
+            if (_optionPanel != null && _optionPanel.activeSelf)
+            {
+                CloseOptionMenu();
+                return;
+            }
             bool isPause = !_pauseMenu.activeSelf;
             _pauseMenu.SetActive(isPause);
 
@@ -108,10 +134,12 @@ public class PauseController : MonoBehaviour
 
     private void openMenu()
     {
+        Debug.Log("open menu 호출 됨");
         if (_backGroundPanel != null)
         {
             _backGroundPanel.SetActive(true);
         }
+        SetInGameIconsActive(false);
         Time.timeScale = 0f;
     }
 
@@ -121,7 +149,64 @@ public class PauseController : MonoBehaviour
         {
             _backGroundPanel.SetActive(false);
         }
+        SetInGameIconsActive(true);
         Time.timeScale = 1f;
+    }
+
+    private void SetInGameIconsActive(bool isActive)
+    {
+        if (_inGameIcons == null) return;
+
+        foreach (GameObject icon in _inGameIcons)
+        {
+            if(icon != null)
+            {
+                icon.SetActive(isActive);
+            }
+        }
+    }
+
+    public void OpenOptionMenu()
+    {
+        Debug.Log("Option 호출");
+        if (_pauseMenu != null)
+        {
+            _pauseMenu.SetActive(false);
+        }
+
+        if (_backGroundPanel != null)
+        {
+            _backGroundPanel.SetActive(true);
+        }
+
+        if (_optionPanel != null)
+        {
+            _optionPanel.SetActive(true);
+        }
+        
+        SetInGameIconsActive(false);
+        Time.timeScale = 0f;
+    }
+
+    private void CloseOptionMenu()
+    {
+        if (_optionPanel != null)
+        {
+            _optionPanel.SetActive(false);
+        }
+
+        if (_pauseMenu != null)
+        {
+            _pauseMenu.SetActive(true);
+        }
+
+        if (_backGroundPanel != null)
+        {
+            _backGroundPanel.SetActive(true);
+        }
+        
+        SetInGameIconsActive(false);
+        Time.timeScale = 0f;
     }
     
     private void ExitGame()
