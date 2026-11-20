@@ -1,6 +1,7 @@
-    using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
@@ -22,7 +23,7 @@ public class PauseController : MonoBehaviour
     [SerializeField] private Button _optionCloseButton;
     [SerializeField] private Button _optionIconButton;
     
-    private bool _isOpenOptionMenu;
+    private bool _isOpenOption;
     
     private void Start()
     {
@@ -36,7 +37,7 @@ public class PauseController : MonoBehaviour
 
         if (_optionButton != null) _optionButton.onClick.AddListener(OpenOptionFromPause);
         if (_optionCloseButton != null) _optionCloseButton.onClick.AddListener(CloseOption);
-        if (_optionIconButton != null) _optionIconButton.onClick.AddListener(ToggleOptionFromIcon);
+        if (_optionIconButton != null) _optionIconButton.onClick.AddListener(TogglePauseMenu);
     }
     
     private void Update()
@@ -53,7 +54,7 @@ public class PauseController : MonoBehaviour
     private void HandleEscapeKey()
     {
         Debug.Log($"ESC 눌림 | Option:{_optionPanel?.activeSelf}, Pause:{_pauseMenu?.activeSelf}");
-        
+
         // Option 창이 열려 있다면 -> Option 창부터 닫기
         if (_optionPanel != null && _optionPanel.activeSelf)
         {
@@ -61,6 +62,11 @@ public class PauseController : MonoBehaviour
             return;
         }
 
+        TogglePauseMenu();
+    }
+
+    public void TogglePauseMenu()
+    {
         // Pause 메뉴가 열려 있다면 -> 게임 재개, 닫혀 있다면 -> Pause 메뉴 열기
         if (_pauseMenu != null && _pauseMenu.activeSelf)
         {
@@ -75,7 +81,7 @@ public class PauseController : MonoBehaviour
     public void OpenPauseMenu()
     {
         Debug.Log("Option Button 누름");
-        _isOpenOptionMenu = false;
+        _isOpenOption = true;
         
         SetActiveSafe(_pauseMenu, true);
         SetActiveSafe(_optionPanel, false);
@@ -88,6 +94,7 @@ public class PauseController : MonoBehaviour
     public void ResumeGame()
     {
         Debug.Log("Resume 호출");
+        _isOpenOption = false;
         
         SetActiveSafe(_pauseMenu, false);
         SetActiveSafe(_optionPanel, false);
@@ -99,52 +106,41 @@ public class PauseController : MonoBehaviour
 
     public void OpenOptionFromPause()
     {
-        _isOpenOptionMenu = true;
-        OpenOptionCommon();
-    }
-
-    public void ToggleOptionFromIcon()
-    {
-        if (_optionPanel != null && _optionPanel.activeSelf)
+        if (!_isOpenOption)
         {
-            CloseOption();
             return;
         }
-
-        _isOpenOptionMenu = false;
-        OpenOptionCommon();
-    }
-
-    private void OpenOptionCommon()
-    {
+        
         SetActiveSafe(_pauseMenu, false);
         SetActiveSafe(_optionPanel, true);
         SetActiveSafe(_backGroundPanel, true);
         SetInGameIconsActive(false);
         
         Time.timeScale = 0f;
+        
+        EventSystem.current.SetSelectedGameObject(null);
     }
-
+    
+    
+    
     public void CloseOption()
     {
-        SetActiveSafe(_optionPanel, false);
-
-        if (_isOpenOptionMenu)
-        {
-            SetActiveSafe(_pauseMenu, true);
-            SetActiveSafe(_backGroundPanel, true);
-            SetInGameIconsActive(false);
-            
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            ResumeGame();
-        }
+        Debug.Log($"CloseOption 진입 | _canOpenOption:{_isOpenOption}, _pauseMenu:{_pauseMenu?.name}");
+        
+        SetActiveSafe(_pauseMenu, false);
+        SetActiveSafe(_optionPanel, true);
+        SetActiveSafe(_backGroundPanel, true);
+        SetInGameIconsActive(false);
+        _isOpenOption = true;
+        
+        Time.timeScale = 0f;
+        
+        Debug.Log($"CloseOption 완료 후 | Option:{_optionPanel?.activeSelf}, Pause:{_pauseMenu?.activeSelf}");
     }
 
     private void ReturnToMain()
     {
+        _isOpenOption = false;
         Time.timeScale = 1f;
         
         SceneManager.LoadScene(_moveToMainTitle);
@@ -152,6 +148,7 @@ public class PauseController : MonoBehaviour
 
     private void ExitGame()
     {
+        _isOpenOption = false;
         Time.timeScale = 1f;
         
         Application.Quit();
