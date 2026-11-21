@@ -127,11 +127,11 @@ public class PauseController : MonoBehaviour
     {
         Debug.Log($"CloseOption 진입 | _canOpenOption:{_isOpenOption}, _pauseMenu:{_pauseMenu?.name}");
         
-        SetActiveSafe(_pauseMenu, false);
-        SetActiveSafe(_optionPanel, true);
+        SetActiveSafe(_pauseMenu, true);
+        SetActiveSafe(_optionPanel, false);
         SetActiveSafe(_backGroundPanel, true);
         SetInGameIconsActive(false);
-        _isOpenOption = true;
+        _isOpenOption = false;
         
         Time.timeScale = 0f;
         
