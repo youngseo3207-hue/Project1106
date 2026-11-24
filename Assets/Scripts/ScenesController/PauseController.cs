@@ -7,37 +7,37 @@ using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
     [Header("Esc키 눌렀을 때 뜨는 화면")]
-    [SerializeField] private GameObject _pauseMenu;
-    [SerializeField] private Button _continueGameButton;
-    [SerializeField] private Button _returnToMainButton;
-    [SerializeField] private Button _exitGameButton;
-    [SerializeField] private Button _optionButton;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private Button continueGameButton;
+    [SerializeField] private Button returnToMainButton;
+    [SerializeField] private Button exitGameButton;
+    [SerializeField] private Button optionButton;
    
     [Header("공통 화면")]
-    [SerializeField] private GameObject _backGroundPanel;
-    [SerializeField] private GameObject[] _inGameIcons;
-    [SerializeField] private string _moveToMainTitle;
+    [SerializeField] private GameObject backGroundPanel;
+    [SerializeField] private GameObject[] inGameIcons;
+    [SerializeField] private string moveToMainTitle;
 
     [Header("옵션-볼륨 조절 창")]
-    [SerializeField] private GameObject _optionPanel;
-    [SerializeField] private Button _optionCloseButton;
-    [SerializeField] private Button _optionIconButton;
+    [SerializeField] private GameObject optionPanel;
+    [SerializeField] private Button optionCloseButton;
+    [SerializeField] private Button optionIconButton;
     
     private bool _isOpenOption;
     
     private void Start()
     {
-        SetActiveSafe(_pauseMenu, false);
-        SetActiveSafe(_optionPanel, false);
-        SetActiveSafe(_backGroundPanel, false);
+        SetActiveSafe(pauseMenu, false);
+        SetActiveSafe(optionPanel, false);
+        SetActiveSafe(backGroundPanel, false);
        
-        if(_continueGameButton != null) _continueGameButton.onClick.AddListener(ResumeGame);
-        if(_returnToMainButton != null) _returnToMainButton.onClick.AddListener(ReturnToMain);
-        if (_exitGameButton != null) _exitGameButton.onClick.AddListener(ExitGame);
+        if(continueGameButton != null) continueGameButton.onClick.AddListener(ResumeGame);
+        if(returnToMainButton != null) returnToMainButton.onClick.AddListener(ReturnToMain);
+        if (exitGameButton != null) exitGameButton.onClick.AddListener(ExitGame);
 
-        if (_optionButton != null) _optionButton.onClick.AddListener(OpenOptionFromPause);
-        if (_optionCloseButton != null) _optionCloseButton.onClick.AddListener(CloseOption);
-        if (_optionIconButton != null) _optionIconButton.onClick.AddListener(TogglePauseMenu);
+        if (optionButton != null) optionButton.onClick.AddListener(OpenOptionFromPause);
+        if (optionCloseButton != null) optionCloseButton.onClick.AddListener(CloseOption);
+        if (optionIconButton != null) optionIconButton.onClick.AddListener(TogglePauseMenu);
     }
     
     private void Update()
@@ -53,10 +53,7 @@ public class PauseController : MonoBehaviour
 
     private void HandleEscapeKey()
     {
-        Debug.Log($"ESC 눌림 | Option:{_optionPanel?.activeSelf}, Pause:{_pauseMenu?.activeSelf}");
-
-        // Option 창이 열려 있다면 -> Option 창부터 닫기
-        if (_optionPanel != null && _optionPanel.activeSelf)
+        if (optionPanel != null && optionPanel.activeSelf)
         {
             CloseOption();
             return;
@@ -67,8 +64,7 @@ public class PauseController : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        // Pause 메뉴가 열려 있다면 -> 게임 재개, 닫혀 있다면 -> Pause 메뉴 열기
-        if (_pauseMenu != null && _pauseMenu.activeSelf)
+        if (pauseMenu != null && pauseMenu.activeSelf)
         {
             ResumeGame();
         }
@@ -83,9 +79,9 @@ public class PauseController : MonoBehaviour
         Debug.Log("Option Button 누름");
         _isOpenOption = true;
         
-        SetActiveSafe(_pauseMenu, true);
-        SetActiveSafe(_optionPanel, false);
-        SetActiveSafe(_backGroundPanel, true);
+        SetActiveSafe(pauseMenu, true);
+        SetActiveSafe(optionPanel, false);
+        SetActiveSafe(backGroundPanel, true);
         SetInGameIconsActive(false);
         
         Time.timeScale = 0f;
@@ -96,9 +92,9 @@ public class PauseController : MonoBehaviour
         Debug.Log("Resume 호출");
         _isOpenOption = false;
         
-        SetActiveSafe(_pauseMenu, false);
-        SetActiveSafe(_optionPanel, false);
-        SetActiveSafe(_backGroundPanel, false);
+        SetActiveSafe(pauseMenu, false);
+        SetActiveSafe(optionPanel, false);
+        SetActiveSafe(backGroundPanel, false);
         SetInGameIconsActive(true);
         
         Time.timeScale = 1f;
@@ -111,9 +107,9 @@ public class PauseController : MonoBehaviour
             return;
         }
         
-        SetActiveSafe(_pauseMenu, false);
-        SetActiveSafe(_optionPanel, true);
-        SetActiveSafe(_backGroundPanel, true);
+        SetActiveSafe(pauseMenu, false);
+        SetActiveSafe(optionPanel, true);
+        SetActiveSafe(backGroundPanel, true);
         SetInGameIconsActive(false);
         
         Time.timeScale = 0f;
@@ -125,17 +121,13 @@ public class PauseController : MonoBehaviour
     
     public void CloseOption()
     {
-        Debug.Log($"CloseOption 진입 | _canOpenOption:{_isOpenOption}, _pauseMenu:{_pauseMenu?.name}");
-        
-        SetActiveSafe(_pauseMenu, false);
-        SetActiveSafe(_optionPanel, true);
-        SetActiveSafe(_backGroundPanel, true);
+        SetActiveSafe(pauseMenu, false);
+        SetActiveSafe(optionPanel, true);
+        SetActiveSafe(backGroundPanel, true);
         SetInGameIconsActive(false);
         _isOpenOption = true;
         
         Time.timeScale = 0f;
-        
-        Debug.Log($"CloseOption 완료 후 | Option:{_optionPanel?.activeSelf}, Pause:{_pauseMenu?.activeSelf}");
     }
 
     private void ReturnToMain()
@@ -143,7 +135,7 @@ public class PauseController : MonoBehaviour
         _isOpenOption = false;
         Time.timeScale = 1f;
         
-        SceneManager.LoadScene(_moveToMainTitle);
+        SceneManager.LoadScene(moveToMainTitle);
     }
 
     private void ExitGame()
@@ -168,9 +160,9 @@ public class PauseController : MonoBehaviour
 
     private void SetInGameIconsActive(bool isActive)
     {
-        if (_inGameIcons == null) return;
+        if (inGameIcons == null) return;
 
-        foreach (GameObject icon in _inGameIcons)
+        foreach (GameObject icon in inGameIcons)
         {
             SetActiveSafe(icon, isActive);
         }

@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SkillsController : MonoBehaviour
 {
-    [SerializeField] private string _moveToSkills = "Skills";
+    [SerializeField] private string moveToSkills = "Skills";
 
-    private bool _isLoadingSkills;
+    private bool isLoadingSkills;
 
     public void OpenSkills()
     {
-        if (!_isLoadingSkills ||
-            SceneManager.GetSceneByName(_moveToSkills).isLoaded)
+        if (!isLoadingSkills ||
+            SceneManager.GetSceneByName(moveToSkills).isLoaded)
         {
             return;
         }
@@ -22,18 +22,18 @@ public class SkillsController : MonoBehaviour
 
     private IEnumerator LoadSkillsScene()
     {
-        _isLoadingSkills = true;
+        isLoadingSkills = true;
         
-        AsyncOperation operation = SceneManager.LoadSceneAsync(_moveToSkills, LoadSceneMode.Additive);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(moveToSkills, LoadSceneMode.Additive);
 
         if (operation == null)
         {
-            _isLoadingSkills = false;
+            isLoadingSkills = false;
             yield break;
         }
 
         yield return operation;
-        _isLoadingSkills = false;
+        isLoadingSkills = false;
     }
     
     public void MoveToInGame()
