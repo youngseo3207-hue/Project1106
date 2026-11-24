@@ -3,19 +3,19 @@ using UnityEngine.InputSystem;
 
 public class MonsterMove : MonoBehaviour
 {
-    [SerializeField] public Transform[] _waypoints;
-    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] public Transform[] waypoints;
+    [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform _endPoint;
-    [SerializeField] private float _moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 3f;
 
-    private float _ArriveDistance = 0.1f;
-    private int _currentWaypoint = 0;
+    private float arriveDistance = 0.1f;
+    private int currentWaypoint = 0;
     
     public void Init(Transform[] waypoints,  Transform endPoint)
     {
-        _waypoints = waypoints;
+        waypoints = waypoints;
         _endPoint = endPoint;
-        _currentWaypoint = 0;
+        currentWaypoint = 0;
     }
     
     private void Update()
@@ -27,15 +27,15 @@ public class MonsterMove : MonoBehaviour
         transform.position = Vector3.MoveTowards(
             transform.position, 
             target.position, 
-            _moveSpeed * Time.deltaTime
+            moveSpeed * Time.deltaTime
             );
 
-        if (Vector3.Distance(transform.position, target.position) > _ArriveDistance)
+        if (Vector3.Distance(transform.position, target.position) > arriveDistance)
             return;
 
-        if (_waypoints != null && _currentWaypoint < _waypoints.Length)
+        if (waypoints != null && currentWaypoint < waypoints.Length)
         {
-            _currentWaypoint++;
+            currentWaypoint++;
             return;
         }
 
@@ -44,7 +44,7 @@ public class MonsterMove : MonoBehaviour
 
     private Transform GetCurrentTarget()
     {
-        if (_waypoints != null && _currentWaypoint < _waypoints.Length) return _waypoints[_currentWaypoint];
+        if (waypoints != null && currentWaypoint < waypoints.Length) return waypoints[currentWaypoint];
 
         return _endPoint;
     }

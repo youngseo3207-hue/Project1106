@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class TurretDamage : MonoBehaviour
 {
-    [SerializeField] private float _attackDamage = 3;
-    [SerializeField] private float _attackRange = 5f;
-    [SerializeField] private float _attackInterval = 1f;
+    [SerializeField] private float attackDamage = 3;
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private float attackInterval = 1f;
     
-    private float _nextAttackTime;
+    private float nextAttackTime;
 
     private void Update()
     {
-        if (Time.time < _nextAttackTime)
+        if (Time.time < nextAttackTime)
             return;
 
         MonsterHealth target = FindMonster();
@@ -18,8 +18,8 @@ public class TurretDamage : MonoBehaviour
         if (target == null)
             return;
 
-        target.TakeDamage((int)_attackDamage);
-        _nextAttackTime = Time.time + _attackInterval;
+        target.TakeDamage((int)attackDamage);
+        nextAttackTime = Time.time + attackInterval;
         
         Debug.Log($"몬스터 수: {FindObjectsByType<MonsterHealth>(FindObjectsSortMode.None).Length}");
     }
@@ -29,7 +29,7 @@ public class TurretDamage : MonoBehaviour
         MonsterHealth[] monsters = FindObjectsByType<MonsterHealth>(FindObjectsSortMode.None);
         
         MonsterHealth closest = null;
-        float closestDistSqr = _attackRange * _attackRange;
+        float closestDistSqr = attackRange * attackRange;
 
         foreach (MonsterHealth monster in monsters)
         {
@@ -52,6 +52,6 @@ public class TurretDamage : MonoBehaviour
     {
         Gizmos.color = Color.white;
         
-        Gizmos.DrawWireSphere(transform.position, _attackRange);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

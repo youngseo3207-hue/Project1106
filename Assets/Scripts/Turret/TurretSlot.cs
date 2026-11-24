@@ -7,9 +7,9 @@ public class TurretSlot : MonoBehaviour
     [SerializeField] private int turretCost = 1; 
     
     [Header("Settings")]
-    [SerializeField] private GameObject towerPrefab;      // 생성할 Arrow Tower 프리팹
-    [SerializeField] private GameObject highlightVisual;  // 마우스 올렸을 때 켜질 흰색 원 테두리
-    [SerializeField] private Vector3 spawnOffset = Vector3.up * 0.5f; // 타워가 지면에 파묻히지 않게 높이 보정
+    [SerializeField] private GameObject towerPrefab; 
+    [SerializeField] private GameObject highlightVisual;
+    [SerializeField] private Vector3 spawnOffset = Vector3.up * 0.5f;
 
     private bool isOccupied = false;
 
@@ -52,7 +52,7 @@ public class TurretSlot : MonoBehaviour
     {
         if (towerPrefab == null)
         {
-            Debug.LogError($"{gameObject.name}: Tower Prefab이 비어 있습니다. 인스펙터에서 연결하세요.", this);
+            Debug.LogError($"{gameObject.name}: Tower Prefab이 비어 있음", this);
             return;
         }
 
