@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 public class MonsterMove : MonoBehaviour
 {
     [SerializeField] public Transform[] waypoints;
-    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform _endPoint;
-    [SerializeField] private float _moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 3f;
 
     private float arriveDistance = 0.1f;
     private int currentWaypoint = 0;
@@ -27,7 +27,7 @@ public class MonsterMove : MonoBehaviour
         transform.position = Vector3.MoveTowards(
             transform.position, 
             target.position, 
-            _moveSpeed * Time.deltaTime
+            moveSpeed * Time.deltaTime
             );
 
         if (Vector3.Distance(transform.position, target.position) > arriveDistance)
